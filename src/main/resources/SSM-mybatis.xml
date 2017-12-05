@@ -47,7 +47,7 @@
     </tx:advice>
     <!--5.配置切面-->
     <aop:config>
-        <aop:pointcut id="pointCut" expression="execution(* com.lanou.mapper.*.*(..))"/>
+        <aop:pointcut id="pointCut" expression="execution(* com.lanou.*.mapper.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
     </aop:config>
     <!--配置mybatis中的mapper接口自动扫描 -->
