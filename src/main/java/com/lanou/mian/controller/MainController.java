@@ -1,4 +1,4 @@
-package com.lanou.main.controller;
+package com.lanou.mian.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
