@@ -1,4 +1,4 @@
-package com.lanou.controller;
+package com.lanou.mian.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,14 +29,21 @@ public class MainController {
         return "admin/admin-password-edit";
     }
 
-    @RequestMapping(value = "adminPermission")
+    @RequestMapping(value = "/adminRole")
     public String admin_Role(){
         return "admin/admin-role";
     }
 
-    @RequestMapping(value = "adminRoleAdd")
-    public String admin_Role_Add(){
-        return "admin/admin-role-add";
+    @RequestMapping(value = "/adminPermission")
+    public String admin_permission(){
+        return "admin/admin-permission";
     }
+
+    @RequestMapping(value = "/welcome.html")
+    public String welcomePage(){
+        return "welcome";
+    }
+
+
 
 }
