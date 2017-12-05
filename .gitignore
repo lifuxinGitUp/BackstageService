@@ -144,3 +144,7 @@ gen### Java template
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+
+.idea/workspace.xml
+src/main/java/com/lanou/main/bean/
+src/main/java/com/lanou/proprietor/
