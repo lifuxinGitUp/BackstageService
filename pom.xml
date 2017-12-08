@@ -97,11 +97,6 @@
       <artifactId>c3p0</artifactId>
       <version>0.9.2.1</version>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>log4j</groupId>-->
-      <!--<artifactId>log4j</artifactId>-->
-      <!--<version>1.2.14</version>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
@@ -125,7 +120,7 @@
 
   </dependencies>
   <build>
-    <finalName>NetCtoss_practice</finalName>
+    <finalName>BackstageService</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -137,7 +132,6 @@
         </configuration>
       </plugin>
     </plugins>
-
 
     <resources>
       <resource>
