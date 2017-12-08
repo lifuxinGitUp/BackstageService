@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.proprietor.mapper.ProprietorMapper">
+    <insert id="addProprietor"
+            parameterType="com.lanou.proprietor.bean.Proprietor">
+        INSERT INTO proprietor(proName,gender,telephone,carMessage,address,createTime,remark,state)
+        VALUES (#{proName},#{gender},#{telephone},#{carMessage},#{address},#{createTime},#{remark},#{state})
+    </insert>
+
+    <select id="findAllProprietor"
+            resultType="com.lanou.proprietor.bean.Proprietor">
+        SELECT * FROM proprietor
+    </select>
+
+    <select id="findProprietorById"
+            resultType="com.lanou.proprietor.bean.Proprietor">
+        SELECT * FROM proprietor WHERE id = #{id}
+    </select>
+
+    <update id="updateProprietor"
+            parameterType="com.lanou.proprietor.bean.Proprietor">
+        UPDATE proprietor SET proName=#{proName},gender=#{gender},telephone=#{telephone},
+        carMessage=#{carMessage},address=#{address},remark=#{remark} where id=#{id}
+    </update>
+
+
+
+
+
+
+
+
+</mapper>

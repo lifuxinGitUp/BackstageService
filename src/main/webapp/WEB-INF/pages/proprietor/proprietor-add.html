@@ -1,3 +1,4 @@
+<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -7,6 +8,8 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="Bookmark" href="/favicon.ico">
+    <link rel="Shortcut Icon" href="/favicon.ico"/>
     <!--[if lt IE 9]>
     <script type="text/javascript" src="/lib/html5shiv.js"></script>
     <script type="text/javascript" src="/lib/respond.min.js"></script>
@@ -20,73 +23,62 @@
     <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>添加管理员 - 管理员管理 - H-ui.admin v3.1</title>
+    <!--/meta 作为公共模版分离出去-->
+
+    <title>添加用户 - H-ui.admin v3.1</title>
     <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <article class="page-container">
-    <form class="form form-horizontal" id="form-admin-add">
+    <form action="/proprietor/addProprietor" method="post" class="form form-horizontal" id="form-member-add">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password"
-                       name="password">
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2"
-                       name="password2">
+                <input type="text" class="input-text" value="" placeholder="" id="proName" name="proName">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
-                    <input name="sex" type="radio" id="sex-1" checked>
+                    <input name="gender" value="男" type="radio" id="sex-1" checked>
                     <label for="sex-1">男</label>
                 </div>
                 <div class="radio-box">
-                    <input type="radio" id="sex-2" name="sex">
+                    <input type="radio" value="女" id="sex-2" name="gender">
                     <label for="sex-2">女</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" value="保密" id="sex-3" name="gender">
+                    <label for="sex-3">保密</label>
                 </div>
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+                <input type="text" class="input-text" value="" placeholder="" id="telephone" name="telephone">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>车辆信息：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                <input type="text" class="input-text" id="carMessage" name="carMessage">
             </div>
         </div>
+
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">角色：</label>
-            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="adminRole" size="1">
-				<option value="0">超级管理员</option>
-				<option value="1">总编</option>
-				<option value="2">栏目主辑</option>
-				<option value="3">栏目编辑</option>
-			</select>
-			</span></div>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 住址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="address" id="address">
+            </div>
         </div>
+
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"
+                <textarea name="remark" id="remark" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符"
                           onKeyUp="$.Huitextarealength(this,100)"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
@@ -106,6 +98,7 @@
 <script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
@@ -117,53 +110,37 @@
             increaseArea: '20%'
         });
 
-        $("#form-admin-add").validate({
+        $("#form-member-add").validate({
             rules: {
-                adminName: {
+                proName: {
                     required: true,
-                    minlength: 4,
+                    minlength: 2,
                     maxlength: 16
                 },
-                password: {
-                    required: true,
+                gender: {
+                    required: true
                 },
-                password2: {
+                telephone: {
                     required: true,
-                    equalTo: "#password"
+                    isMobile: true
                 },
-                sex: {
-                    required: true,
+                address:{
+                    required:true
                 },
-                phone: {
-                    required: true,
-                    isPhone: true,
-                },
-                email: {
-                    required: true,
-                    email: true,
-                },
-                adminRole: {
-                    required: true,
-                },
+                remark:{
+                    required:true,
+                    minlength:10
+                }
             },
-            onkeyup: false,
-            focusCleanup: true,
-            success: "valid",
-            submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    type: 'post',
-                    url: "xxxxxxx",
-                    success: function (data) {
-                        layer.msg('添加成功!', {icon: 1, time: 1000});
-                    },
-                    error: function (XmlHttpRequest, textStatus, errorThrown) {
-                        layer.msg('error!', {icon: 1, time: 1000});
-                    }
-                });
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
-            }
+//            onkeyup: false,
+//            focusCleanup: true,
+//            success: "valid",
+//            submitHandler: function (form) {
+//                //$(form).ajaxSubmit();
+//                var index = parent.layer.getFrameIndex(window.name);
+//                //parent.$('.btn-refresh').click();
+//                parent.layer.close(index);
+//            }
         });
     });
 </script>
