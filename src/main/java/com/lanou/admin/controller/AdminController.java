@@ -20,7 +20,7 @@ public class AdminController {
     @Qualifier("adminService")
     @Autowired
     private AdminService adminService;
-    //123124
+    //123124213
     @RequestMapping(value = "/goAddAdminPage")
     public String admin_Add(){
         return "admin/admin-add";
