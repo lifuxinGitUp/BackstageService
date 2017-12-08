@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.admin.mapper.RoleMapper">
+    
+    <insert id="addRole"
+            useGeneratedKeys="true" keyProperty="roleId"
+            parameterType="com.lanou.admin.bean.Role">
+        INSERT INTO roles (
+        roleName
+        <if test="roleContent != null and roleContent.length() > 0">
+            ,roleContent
+        </if>
+        )
+        VALUES (
+        #{roleName}
+        <if test="roleContent != null and roleContent.length() > 0">
+            ,#{roleContent}
+        </if>
+        );
+    </insert>
+    <insert id="addRolePer" parameterType="com.lanou.admin.bean.Role">
+        INSERT INTO roles_per (roleId,perId,addPer,deletePer,updatePer,selectPer,auditPer,ownPer)
+        VALUES
+        <foreach collection="permissions" item="per" separator=",">
+            (#{roleId},#{per.perId},#{per.addPer},#{per.deletePer},#{per.updatePer},#{per.selectPer},#{per.auditPer},#{per.ownPer})
+        </foreach>
+    </insert>
+    <select id="findAllRole" resultType="com.lanou.admin.bean.Role">
+        SELECT * FROM roles
+    </select>
+</mapper>

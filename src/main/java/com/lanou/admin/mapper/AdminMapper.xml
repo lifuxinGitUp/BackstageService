@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.admin.mapper.AdminMapper">
+    <insert id="addAdmin"
+            useGeneratedKeys="true" keyProperty="adminId"
+            parameterType="com.lanou.admin.bean.Admin">
+        INSERT INTO admin
+        (adminLoginName,adminLoginPwd,adminSalt,adminGender,adminPhone,adminEmail,adminContent,adminJoinTime)
+        VALUES
+        (#{adminLoginName},#{adminLoginPwd},#{adminSalt},#{adminGender},#{adminPhone},#{adminEmail},#{adminContent},#{adminJoinTime})
+    </insert>
+</mapper>

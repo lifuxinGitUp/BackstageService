@@ -14,17 +14,12 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "AddAdmin")
-    public String admin_Add(){
-        return "admin/admin-add";
-    }
-
-    @RequestMapping(value = "adminList")
+    @RequestMapping(value = "/adminList")
     public String admin_List(){
         return "admin/admin-list";
     }
 
-    @RequestMapping(value = "adminPassword")
+    @RequestMapping(value = "/adminPassword")
     public String admin_Password_Edit(){
         return "admin/admin-password-edit";
     }
@@ -39,10 +34,46 @@ public class MainController {
         return "admin/admin-permission";
     }
 
-    @RequestMapping(value = "/welcome.html")
+    @RequestMapping(value = "/welcome")
     public String welcomePage(){
         return "welcome";
     }
+
+
+    /**
+     * 业主信息的跳转
+     */
+    // 业主信息列表
+    @RequestMapping(value = "proprietorList")
+    public String proprietor_List(){
+        return "proprietor/proprietor-list";
+    }
+
+    // 删除的业主
+    @RequestMapping(value = "proprietorDel")
+    public String proprietor_Del(){
+        return "proprietor/proprietor-del";
+    }
+
+    // 添加业主
+    @RequestMapping(value = "proprietorAdd")
+    public String proprietor_Add(){
+        return "proprietor/proprietor-add";
+    }
+
+    // 显示业主信息
+    @RequestMapping(value = "proprietorShow")
+    public String proprietor_Show(){
+        return "proprietor/proprietor-show";
+    }
+
+    // 浏览记录
+    @RequestMapping(value = "proprietorCarCost")
+    public String proprietor_Record_Browse(){
+        return "proprietor/proprietor-car-cost";
+    }
+
+
 
 
 

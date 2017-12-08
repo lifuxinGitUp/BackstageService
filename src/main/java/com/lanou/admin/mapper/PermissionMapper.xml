@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.admin.mapper.PermissionMapper">
+
+    <resultMap id="group_per" type="com.lanou.admin.bean.Group">
+        <id column="groId" property="groId"/>
+        <result column="groName" property="groName"/>
+        <collection property="permissions" ofType="com.lanou.admin.bean.Permission">
+            <id column="perId" property="perId"/>
+            <result column="perName" property="perName"/>
+            <result column="perContent" property="perContent"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="findAllGroup" resultMap="group_per">
+        SELECT * FROM `group` NATURAL JOIN permission;
+    </select>
+
+    <select id="findAllPermission" resultType="com.lanou.admin.bean.Permission">
+        SELECT * FROM permission;
+    </select>
+    <select id="findGroupById"
+            parameterType="int"
+            resultType="com.lanou.admin.bean.Group">
+        SELECT * FROM `group` WHERE groId=#{groId};
+    </select>
+    <insert id="addPermission"
+            parameterType="com.lanou.admin.bean.Permission">
+        INSERT INTO permission (
+          perName,groId
+          <if test="perContent != null and perContent.length() > 0">
+             ,perContent
+          </if>
+        )
+        VALUES (
+          #{perName},#{group.groId}
+          <if test="perContent != null and perContent.length() > 0">
+            ,#{perName}
+          </if>
+        );
+    </insert>
+</mapper>
