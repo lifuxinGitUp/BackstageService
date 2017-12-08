@@ -27,7 +27,6 @@ public class ProprietorController {
 
     @RequestMapping(value = "/addProprietor")
     public String addProprietor(Proprietor proprietor){
-//        System.out.println("6666666666666");
         Date date = new Date();
         long time = date.getTime();
         Timestamp timestamp = new Timestamp(time);
@@ -39,8 +38,8 @@ public class ProprietorController {
 
     // 查询所有业主信息
     @ResponseBody
-    @RequestMapping(value = "findAllProprietor")
-    public PageInfo<Proprietor> findAllProprietor(Integer pageNum,Integer pageSize){
+                                  @RequestMapping(value = "findAllProprietor")
+                                  public PageInfo<Proprietor> findAllProprietor(Integer pageNum,Integer pageSize){
         PageInfo<Proprietor> proprietorPageInfo = proprietorService.findAllProprietor(pageNum,pageSize);
         System.out.println("7777" + proprietorPageInfo);
         return proprietorPageInfo;
@@ -56,6 +55,7 @@ public class ProprietorController {
         return "proprietor/proprietor-edit";
     }
 
+
     // 数据回显
     @RequestMapping(value = "/show")
     @ResponseBody
@@ -65,6 +65,7 @@ public class ProprietorController {
         map.put("showProprietor",proprietor);
         return map;
     }
+
 
     // 修改业主信息
     @RequestMapping(value = "/updateProprietor")

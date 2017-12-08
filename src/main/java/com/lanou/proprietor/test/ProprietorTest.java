@@ -43,10 +43,6 @@ public class ProprietorTest {
 
     @Test
     public void test2(){
-//        List<Proprietor> allProprietor = proprietorMapper.findAllProprietor();
-//        for (Proprietor proprietor : allProprietor) {
-//            System.out.println(proprietor);
-//        }
         proprietorService.findAllProprietor(1,1);
 
     }
