@@ -17,11 +17,12 @@ public class Proprietor {
     private Timestamp overTime; // 出户时间
     private String address; // 户主地址
     private String remark; //备注
+    private int deleteState;// 判断业主是否为删除状态
 
     public Proprietor() {
     }
 
-    public Proprietor(int id, String proName, String gender, String telephone, String carMessage, Timestamp createTime, int state, Timestamp overTime, String address, String remark) {
+    public Proprietor(int id, String proName, String gender, String telephone, String carMessage, Timestamp createTime, int state, Timestamp overTime, String address, String remark, int deleteState) {
         this.id = id;
         this.proName = proName;
         this.gender = gender;
@@ -32,9 +33,10 @@ public class Proprietor {
         this.overTime = overTime;
         this.address = address;
         this.remark = remark;
+        this.deleteState = deleteState;
     }
 
-    public Proprietor(String proName, String gender, String telephone, String carMessage, Timestamp createTime, int state, Timestamp overTime, String address, String remark) {
+    public Proprietor(String proName, String gender, String telephone, String carMessage, Timestamp createTime, int state, Timestamp overTime, String address, String remark, int deleteState) {
         this.proName = proName;
         this.gender = gender;
         this.telephone = telephone;
@@ -44,6 +46,7 @@ public class Proprietor {
         this.overTime = overTime;
         this.address = address;
         this.remark = remark;
+        this.deleteState = deleteState;
     }
 
     @Override
@@ -59,6 +62,7 @@ public class Proprietor {
                 ", overTime=" + overTime +
                 ", address='" + address + '\'' +
                 ", remark='" + remark + '\'' +
+                ", deleteState=" + deleteState +
                 '}';
     }
 
@@ -140,5 +144,13 @@ public class Proprietor {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public int getDeleteState() {
+        return deleteState;
+    }
+
+    public void setDeleteState(int deleteState) {
+        this.deleteState = deleteState;
     }
 }

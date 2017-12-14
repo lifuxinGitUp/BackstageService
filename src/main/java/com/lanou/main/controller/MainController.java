@@ -70,7 +70,7 @@ public class MainController {
     // 浏览记录
     @RequestMapping(value = "proprietorCarCost")
     public String proprietor_Record_Browse(){
-        return "proprietor/proprietor-car-cost";
+        return "proprietor/garageMessage";
     }
 
 

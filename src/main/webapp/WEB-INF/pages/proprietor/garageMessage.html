@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5shiv.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <![endif]-->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css"/>
+    <!--[if IE 6]>
+    <!--<script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js"></script>-->
+    <!--<script>DD_belatedPNG.fix('*');</script>-->
+    <!--[endif]-->
+    <title>车库信息</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 业主中心 <span
+        class="c-gray en">&gt;</span> 车库信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+                                              href="javascript:location.replace(location.href);" title="刷新"><i
+        class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c"> 车库搜索：
+        <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话" id="" name="">
+        <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户
+        </button>
+    </div>
+    <span class="r"></span>
+    <!--<span class="r">共有数据：<strong>88</strong> 条</span></div>-->
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="80">ID</th>
+                <th width="100">车库名</th>
+                <th width="90">车库地址</th>
+                <th width="150">剩余车位</th>
+                <th width="70">出租类型</th>
+                <th width="130">出租金额</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody id="tab">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" language="JavaScript">
+    function addNewTR(id, garageName, garageAdress, lastNum, costType, rentCost) {
+        var td1 = $("<td></td>").html("<p>" + id + "</p>")
+        var td2 = $("<td></td>").html("<p>" + garageName + "</p>")
+        var td3 = $("<td></td>").html("<p>" + garageAdress + "</p>")
+        var td4 = $("<td></td>").html("<p>" + lastNum + "</p>")
+        var td5 = $("<td></td>").html("<p>" + costType + "</p>")
+        var td6 = $("<td></td>").html("<p>" + rentCost + "</p>")
+        var td7 = $("<td class='td-manage'></td>");
+        $("<a style='text-decoration:none' class='ml-5' href='javascript:;' title='添加顾客'>" +
+                "<i class='Hui-iconfont'>&#xe607;</i></a>").appendTo(td7).attr("id", id).click(
+                function () {
+                    customer_add("添加顾客", "/customer/customerAdd", 400, 300)
+                });
+        $("<a style='text-decoration:none' class='ml-5' href='javascript:;' title='列表'>" +
+                "<i class='Hui-iconfont'>&#xe6bf;</i></a>").appendTo(td7).click(number_list).attr("id", id);
+        var append = $("<tr class='text-c'></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7)
+
+        $("#tab").append(append)
+    }
+
+    findAllCarSpace();
+    function findAllCarSpace() {
+        $.ajax({
+            type: "post",
+            url: "/carspace/findAllCarSpace",
+            success: function (result) {
+                var list = result.data;
+                $("#tab").html("");
+                for (var i = 0; i < list.length; i++) {
+                    addNewTR(list[i].id, list[i].garageName, list[i].garageAddress,
+                            list[i].lastNum, list[i].costType, list[i].rentCost);
+                }
+            }
+        });
+    }
+
+    /*用户列表*/
+    function number_list() {
+        var id = $(this).attr("id");//1
+//        alert(id);
+        if (id == 1) {
+            location.href = "/carspace/toNumberList?id=" + id;
+        }
+    }
+    /*用户-添加*/
+    function customer_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+</script>
+</body>
+</html>

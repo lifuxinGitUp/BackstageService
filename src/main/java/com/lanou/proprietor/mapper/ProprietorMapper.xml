@@ -6,16 +6,17 @@
 
     <insert id="addProprietor"
             parameterType="com.lanou.proprietor.bean.Proprietor">
-        INSERT INTO proprietor(proName,gender,telephone,carMessage,address,createTime,remark,state)
-        VALUES (#{proName},#{gender},#{telephone},#{carMessage},#{address},#{createTime},#{remark},#{state})
+        INSERT INTO proprietor(proName,gender,telephone,carMessage,address,createTime,remark,state,deleteState)
+        VALUES (#{proName},#{gender},#{telephone},#{carMessage},#{address},#{createTime},#{remark},#{state},#{deleteState})
     </insert>
 
     <select id="findAllProprietor"
             resultType="com.lanou.proprietor.bean.Proprietor">
-        SELECT * FROM proprietor
+        SELECT * FROM proprietor WHERE deleteState = 1
     </select>
 
     <select id="findProprietorById"
+            parameterType="integer"
             resultType="com.lanou.proprietor.bean.Proprietor">
         SELECT * FROM proprietor WHERE id = #{id}
     </select>
@@ -25,6 +26,52 @@
         UPDATE proprietor SET proName=#{proName},gender=#{gender},telephone=#{telephone},
         carMessage=#{carMessage},address=#{address},remark=#{remark} where id=#{id}
     </update>
+
+    <!-- 停用 -->
+    <update id="stopProprietor"
+            parameterType="integer">
+        UPDATE proprietor SET state = 0 WHERE id=#{id}
+    </update>
+
+    <!-- 启用 -->
+    <update id="startProprietor"
+            parameterType="integer">
+        UPDATE proprietor SET state = 1 WHERE id=#{id}
+    </update>
+
+    <!-- 将业主删除 -->
+    <update id="deleteProprietor"
+            parameterType="com.lanou.proprietor.bean.Proprietor">
+        UPDATE proprietor SET deleteState = 0,overTime=#{overTime} WHERE id=#{id}
+    </update>
+
+    <!-- 查询所有已删除的业主信息 -->
+    <select id="findAllDeleteProprirtor"
+            resultType="com.lanou.proprietor.bean.Proprietor">
+        SELECT * FROM proprietor WHERE deleteState = 0
+    </select>
+    
+    
+    <!-- 撤销删除 revoke-->
+    <update id="revokeDelete"
+            parameterType="integer">
+        UPDATE proprietor SET deleteState = 1 WHERE id=#{id}
+    </update>
+
+    <!-- 彻底删除业主 -->
+    <delete id="delProprietor"
+            parameterType="integer">
+        DELETE FROM proprietor WHERE id=#{id}
+    </delete>
+
+    <!-- 高级查询 -->
+    <select id="findByGJ"
+            parameterType="java.lang.String"
+            resultType="com.lanou.proprietor.bean.Proprietor">
+        SELECT * FROM proprietor WHERE proName LIKE '%${value}%' OR gender LIKE
+        '%${value}%' OR telephone LIKE '%${value}%' OR carMessage LIKE '%${value}%'
+        OR address LIKE '%${value}%'
+    </select>
 
 
 

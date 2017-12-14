@@ -29,21 +29,18 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c"> 日期范围：
-        <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"
-               class="input-text Wdate" style="width:120px;">
-        -
-        <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax"
-               class="input-text Wdate" style="width:120px;">
-        <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-        <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户
+<form action="" method="post">
+    <div class="text-c"> 用户搜索:
+        <input type="text" class="input-text" style="width:250px" placeholder="输入业主的姓名,电话,地址,性别," id="str" name="str">
+        <button type="button" class="btn btn-success radius" id="" name="" onclick="fuzzySearch()">
+            <i class="Hui-iconfont">&#xe665;</i> 搜用户
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
-                                                               class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            href="javascript:;" onclick="member_add('添加用户','/proprietorAdd','','510')"
-            class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span
-            class="r">共有数据：<strong>88</strong> 条</span></div>
+</form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <a href="javascript:;" onclick="member_add('添加用户','/proprietorAdd','','510')"
+           class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
+        <span class="r"></span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
@@ -65,7 +62,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 <div class="row">
     <div class="col-md-10"></div>
@@ -92,59 +88,72 @@
     function addNewTR(id, proName, gender, telephone, carMessage, createTime, state, address) {
         var td1 = $("<td></td>")
         var td2 = $("<td></td>").html("<p>" + id + "</p>")
-        var td3 = $("<td></td>").html("<p>" + proName + "</p>")
+        var td3 = $("<td></td>")
         var td4 = $("<td></td>").html("<p>" + gender + "</p>")
         var td5 = $("<td></td>").html("<p>" + telephone + "</p>")
         var td6 = $("<td></td>").html("<p>" + carMessage + "</p>")
         var td7 = $("<td class='text-l'></td>").html("<p>" + address + "</p>")
         var td10 = $("<td></td>").html("<p>" + createTime + "</p>")
         var td8 = $("<td class='td-status'></td>")
-        if (state == 1){
+        if (state == 1) {
             $("<span class='label label-success radius'>已启用</span>").appendTo(td8)
-        }else {
+        } else {
             $("<span  class='label label-danger radius'>未启用</span>").appendTo(td8)
         }
         $("<input type='checkbox' value='1' name=''>").appendTo(td1)
 
-        var td9 = $("<td class='td-manage'></td>")
-        $("<a style='text-decoration:none' href='javascript:;' title='停用' onclick='member_stop(this,'10001')'><i class='Hui-iconfont'>&#xe631;</i></a>").appendTo(td9)
+        $("<u style='cursor:pointer' class='text-primary'>" + proName + "</u>").appendTo(td3).attr("id", id).click(
+                function () {
+                    member_show($(this).html(), "/proprietor/showProprietor", 300, 400);
+                });
+
+        var td9 = $("<td class='td-manage'></td>");
+        if (state == 1) {
+            $("<a style='text-decoration:none' href='javascript:;' title='停用' >" +
+                    "<i class='Hui-iconfont'>&#xe631;</i></a>").appendTo(td9).click(member_stop).attr("id", id)
+        } else {
+            $("<a style='text-decoration:none' href='javascript:;' title='启用' >" +
+                    "<i class='Hui-iconfont'>&#xe631;</i></a>").appendTo(td9).click(member_start).attr("id", id)
+        }
         $("<a title='编辑' href='javascript:;' class='ml-5' style='text-decoration:none'>" +
-                "<i class='Hui-iconfont'>&#xe6df;</i><a>").appendTo(td9).click(member_edit).attr("id",id)
+                "<i class='Hui-iconfont'>&#xe6df;</i><a>").appendTo(td9).click(member_edit).attr("id", id);
         $("<a style='text-decoration:none' class='ml-5' href='javascript:;' title='修改密码' onclick='change_password('修改密码','change-password.html','10001','600','270')'><i class='Hui-iconfont'>&#xe63f;</i></a>").appendTo(td9)
-        $("<a style='text-decoration:none' class='ml-5' href='javascript:;' title='删除'><i class='Hui-iconfont'>&#xe6e2;</i></a>").appendTo(td9)
-        var append = $("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td10).append(td8).append(td9)
+        $("<a style='text-decoration:none' class='ml-5' href='javascript:;' title='删除'>" +
+                "<i class='Hui-iconfont'>&#xe6e2;</i></a>").appendTo(td9).click(member_del).attr("id", id);
+        var append = $("<tr class='text-c'></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td10).append(td8).append(td9)
         $("#tab").append(append)
     }
 
     // 查询所有业主
     function showProprietor(pageNum, pageSize) {
         $.ajax({
-            url:"/proprietor/findAllProprietor",
-            data:{
-                "pageNum":pageNum,
-                "pageSize":pageSize
+            type:"post",
+            url: "/proprietor/findAllProprietor",
+            data: {
+                "pageNum": pageNum,
+                "pageSize": pageSize
             },
-            success:function (result) {
+            success: function (result) {
                 var list = result.list;
                 $("#tab").html("");
                 $("#page").html("");
-                showPage(result,"/proprietor/findAllProprietor");
-                for (var i=0;i<list.length;i++){
-                    var _time=new Date(list[i].createTime);
-                    var   year=_time.getFullYear();
-                    var   month=_time.getMonth()+1;
-                    var   date=_time.getDate();
-                    var   hour=_time.getHours();
-                    var   minute=_time.getMinutes();
-                    var   second=_time.getSeconds();
-                    addNewTR(list[i].id,list[i].proName,list[i].gender,list[i].telephone,list[i].carMessage,year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second ,list[i].state,
-                    list[i].address);
+                showPage(result, "/proprietor/findAllProprietor");
+                for (var i = 0; i < list.length; i++) {
+                    var _time = new Date(list[i].createTime);
+                    var year = _time.getFullYear();
+                    var month = _time.getMonth() + 1;
+                    var date = _time.getDate();
+                    var hour = _time.getHours();
+                    var minute = _time.getMinutes();
+                    var second = _time.getSeconds();
+                    addNewTR(list[i].id, list[i].proName, list[i].gender, list[i].telephone, list[i].carMessage, year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second, list[i].state,
+                            list[i].address);
                 }
             }
         })
     }
 
-    showProprietor(1,3);
+    showProprietor(1, 3);
 
     function showPage(result) {
         //首页
@@ -159,6 +168,7 @@
 
         // 页码显示
         var pages = result.pages;
+
         for (var i = 1; i <= pages; i++) {
             var pageTrue = $("<li> <span>" + i + "<span class='sr-only'>(current)</span></span></li>");
             var pageFalse = $("<li><a href='#' onclick='showProprietor(" + i + ",3)'>" + i + "</a></li>");
@@ -186,84 +196,6 @@
         var totalPage = $("<li> <a href='#'>共" + result.pages + "页</a> </li>");
         $("#page").append(totalPage);
     }
-
-
-
-//    // 查询所有业主
-//    function showPropriteor(pageNum,pageSize) {
-//        $.ajax({
-//            type: "post",
-//            url: "/proprietor/findAllProprietor",
-//            data:{
-//                "pageNum": pageNum,
-//                "pageSize": pageSize
-//            },
-//            success: function (result) {
-//                var list = result.list;
-//                alert(list);
-//                $("#tab").html("");
-//                $("#page").html("");
-//                showPage(result,"/proprietor/findAllProprietor")
-//                for (var i = 0;i <= list.length;i++){
-//                    var _time=new Date(list[i].createTime);
-//                    var   year=_time.getFullYear();//2017
-//                    var   month=_time.getMonth()+1;//7
-//                    var   date=_time.getDate();//10
-//                    var   hour=_time.getHours();//10
-//                    var   minute=_time.getMinutes();//56
-//                    var   second=_time.getSeconds();//15
-//                    var title = "<tr class='text-c'>"+
-//                                    "<td>" +
-//                                        "<input type='checkbox' value='1' name=''>" +
-//                                    "</td>" +
-//                                    "<td>"+ list[i].id +
-//                                    "</td>" +
-//                                    "<td>" +
-//                                        "<u style='cursor:pointer' class='text-primary' onclick='member_show('张三','/proprietorShow','10001','360','400')'>" + allProprietor[i].proName +
-//                                    "</u>" +
-//                                    "</td>" +
-//                                    "<td>" + list[i].gender +
-//                                    "</td>" +
-//                                    "<td>"+ list[i].telephone +
-//                                    "</td>" +
-//                                    "<td>" + list[i].carMessage +
-//                                    "</td>" +
-//                                    "<td class='text-l'>" + list[i].address +
-//                                    "</td>" +
-//                                    "<td>" + year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second +
-//                                    "</td>" +
-//                                    "<td class='td-status'>";
-//
-//                    if (list[i].state == 1){
-//                          title += "<span class='label label-success radius'>"+"启用" + "</span>" + "</td>";
-//                    } else {
-//                        title += "<span class='label label-danger radius'>"+"未启用" + "</span>" + "</td>";
-//                    }
-//                        title +=  "<td class='td-manage'>" +
-//                                    "<a style='text-decoration:none' href='javascript:;' title='停用' onClick='member_stop(this,'10001')'>" +
-//                                    "<i class='Hui-iconfont'>" + '&#xe631;'+
-//                                    "</i>" + "</a>" +
-//                                    "<a title='编辑' href='javascript:;' class='ml-5' style='text-decoration:none' onclick='member_edit('编辑','/proprietorEdit','4','','510')'>" +
-//                                    "<i class='Hui-iconfont'>" +
-//                                    '&#xe6df;' +
-//                                    "</i>" +
-//                                    "</a>"+
-//                                    "<a style='text-decoration:none' class='ml-5' href='javascript:;' title='修改密码' onclick='change_password('修改密码','change-password.html','10001','600','270')'>" +
-//                                    "<i class='Hui-iconfont'>" + '&#xe63f;' +
-//                                    "</i>" +
-//                                    "</a>" +
-//                                    "<a title='删除' href='javascript:;' class='ml-5' style='text-decoration:none' onclick='member_del(this,'1')'>" +
-//                                    "<i class='Hui-iconfont'>" + '&#xe6e2;' +
-//                                    "</i>" +
-//                                    "</a>" +
-//                                    "</td>"+
-//                                    "</tr>";
-//                    $("#tab").append(title);
-//                }
-//
-//            }
-//        });
-//    }
     $(function () {
         $('.table-sort').dataTable({
             "aaSorting": [[1, "desc"]],//默认第几个排序
@@ -279,46 +211,55 @@
         layer_show(title, url, w, h);
     }
     /*用户-查看*/
-    function member_show(title, url, id, w, h) {
+    function member_show(title, url, w, h) {
+//        console.log(title+"  "+url+w+h);
         layer_show(title, url, w, h);
+//        location.href = "/proprietor/showProprietor";
     }
     /*用户-停用*/
     function member_stop(obj, id) {
+        var id = $(this).attr("id");
+//        alert(id)
         layer.confirm('确认要停用吗？', function (index) {
             $.ajax({
-                type: 'POST',
-                url: '',
-                dataType: 'json',
+                type: 'post',
+                url: "/proprietor/stopProprietor?id=" + id,
                 success: function (data) {
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
                     $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
                     $(obj).remove();
-                    layer.msg('已停用!', {icon: 5, time: 1000});
+                    layer.msg('已停用!', {icon: 5, time: 1000}, function () {
+                        window.location.reload();
+                    });
                 },
                 error: function (data) {
                     console.log(data.msg);
                 },
             });
         });
+
     }
 
     /*用户-启用*/
     function member_start(obj, id) {
+        var id = $(this).attr("id");
         layer.confirm('确认要启用吗？', function (index) {
             $.ajax({
-                type: 'POST',
-                url: '',
-                dataType: 'json',
+                type: 'post',
+                url: "/proprietor/startProprietor?id=" + id,
                 success: function (data) {
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe631;</i></a>');
                     $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
                     $(obj).remove();
-                    layer.msg('已启用!', {icon: 6, time: 1000});
+                    layer.msg('已启用!', {icon: 6, time: 1000}, function () {
+                        window.location.reload();
+                    });
                 },
                 error: function (data) {
                     console.log(data.msg);
                 },
             });
+
         });
     }
     /*用户-编辑*/
@@ -332,20 +273,44 @@
     }
     /*用户-删除*/
     function member_del(obj, id) {
+
+        var id = $(this).attr("id");
         layer.confirm('确认要删除吗？', function (index) {
             $.ajax({
-                type: 'POST',
-                url: '',
-                dataType: 'json',
+                type: 'post',
+                url: "/proprietor/deleteProprietor?id=" + id,
                 success: function (data) {
                     $(obj).parents("tr").remove();
-                    layer.msg('已删除!', {icon: 1, time: 1000});
+                    layer.msg('已删除!', {icon: 1, time: 1000}, function () {
+                        window.location.reload();
+                    });
                 },
                 error: function (data) {
                     console.log(data.msg);
                 },
             });
         });
+    }
+
+    function fuzzySearch(str) {
+        $.ajax({
+            type: "post",
+            url: "/proprietor/findByGJ",
+            data:{
+                "str":$("#str").val()
+            },
+            success: function (result) {
+                alert(result)
+                var list = result.data;
+                alert(list)
+                console.log(list)
+                $("#tab").html("");
+                for (var i = 0; i < list.length; i++) {
+                    addNewTR(list[i].id, list[i].proName, list[i].gender, list[i].telephone, list[i].carMessage, list[i].creatTime, list[i].state,
+                            list[i].address);
+                }
+            }
+        })
     }
 </script>
 </body>

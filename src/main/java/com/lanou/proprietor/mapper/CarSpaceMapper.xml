@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.proprietor.mapper.CarSpaceMapper">
+    <!-- 查询车库信息 -->
+    <select id="findAllCarSpace"
+            resultType="com.lanou.proprietor.bean.CarSpace">
+        SELECT * FROM carSpace
+    </select>
+
+    <!-- 多表查询一号车库的所有用户 -->
+    <!--<resultMap id="carSpaces" type="com.lanou.proprietor.bean.CarSpace">-->
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="garageName" property="garageName"/>-->
+        <!--<result column="garageAdress" property="garageAddress"/>-->
+        <!--<result column="lastNum" property="lastNum"/>-->
+        <!--<result column="costType" property="costType"/>-->
+        <!--<result column="rentCost" property="rentCost"/>-->
+        <!--<collection property="customerList"-->
+                    <!--ofType="com.lanou.proprietor.bean.Customer">-->
+            <!--<id column="cid" property="cid"/>-->
+            <!--<result column="cName" property="cName"/>-->
+            <!--<result column="carNum" property="carNum"/>-->
+            <!--<result column="startTime" property="startTime"/>-->
+            <!--<result column="endTime" property="endTime"/>-->
+            <!--<result column="yMoney" property="yMoney"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+    <!--SELECT * FROM carSpace LEFT JOIN carSpace_customer ON carSpace.id = carSpace_customer.carId-->
+           <!--WHERE carSpace.id = #{id}-->
+    <!--<select id="findAllCustomer"-->
+            <!--parameterType="int"-->
+            <!--resultMap="carSpaces">-->
+       <!--SELECT * FROM carSpace,carSpace_customer,customer WHERE carSpace.id = carSpace_customer.id-->
+       <!--AND carSpace_customer.cid = customer.cid AND carSpace.id=#{value}-->
+    <!--</select>-->
+
+
+</mapper>

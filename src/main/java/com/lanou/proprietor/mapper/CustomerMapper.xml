@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.proprietor.mapper.CustomerMapper">
+
+    <!-- 查询某个车库下的全部用户 -->
+    <select id="findAllCustomer"
+            resultType="com.lanou.proprietor.bean.Customer">
+        SELECT * FROM customer WHERE id=#{id}
+    </select>
+
+    <!-- 车辆出租的时候的记录,添加 -->
+    <insert id="addCustomer"
+            parameterType="com.lanou.proprietor.bean.Customer">
+        INSERT INTO customer(cName,carNum,startTime,yMoney,id) VALUES
+        (#{cName},#{carNum},#{startTime},#{yMoney},#{id})
+    </insert>
+
+
+
+
+
+</mapper>

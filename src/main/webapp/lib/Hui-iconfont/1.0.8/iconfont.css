@@ -91,12 +91,12 @@
 .Hui-iconfont-share-renren:before { content: "\e6d8"; }
 .Hui-iconfont-share-tweibo:before { content: "\e6d9"; }
 .Hui-iconfont-arrow2-left:before { content: "\e6d4"; }
-.Hui-iconfont-paixu:before { content: "\e675"; }
+.Hui-iconfont-paixu:before { content: "\e675/"; }
 .Hui-iconfont-niming:before { content: "\e624"; }
 .Hui-iconfont-add:before { content: "\e600"; }
 .Hui-iconfont-root:before { content: "\e62d"; }
 .Hui-iconfont-xuanzhong:before { content: "\e676"; }
-.Hui-iconfont-weixuanzhong:before { content: "\e677"; }
+.Hui-iconfont-weixuanzhong:before { conatent: "\e677"; }
 .Hui-iconfont-arrow2-bottom:before { content: "\e6d5"; }
 .Hui-iconfont-arrow2-top:before { content: "\e6d6"; }
 .Hui-iconfont-like2:before { content: "\e648"; }

@@ -144,3 +144,16 @@
 ## virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 #hs_err_pid*
 #
+.DS_Store
+.idea/dataSources.local.xml
+.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml
+.idea/libraries/Maven__com_google_guava_guava_r09.xml
+.idea/libraries/Maven__com_google_inject_extensions_guice_multibindings_3_0.xml
+.idea/libraries/Maven__com_google_inject_guice_3_0.xml
+.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml
+.idea/libraries/Maven__javax_inject_javax_inject_1.xml
+.idea/libraries/Maven__org_apache_shiro_shiro_all_1_2_3.xml
+.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml
+.idea/libraries/Maven__org_apache_shiro_shiro_guice_1_2_3.xml
+.idea/libraries/Maven__org_slf4j_slf4j_api_1_6_4.xml
+.idea/workspace.xml

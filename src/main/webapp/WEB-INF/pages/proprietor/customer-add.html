@@ -31,58 +31,26 @@
 </head>
 <body>
 <article class="page-container">
-    <form action="/proprietor/addProprietor" method="post" class="form form-horizontal" id="form-member-add">
+    <form action="/customer/addCustomer" method="post" class="form form-horizontal" id="form-member-add">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>用户名：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="proName" name="proName">
+                <input type="text" class="input-text" value="" placeholder="" id="cName" name="cName">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                <div class="radio-box">
-                    <input name="gender" value="男" type="radio" id="sex-1" checked>
-                    <label for="sex-1">男</label>
-                </div>
-                <div class="radio-box">
-                    <input type="radio" value="女" id="sex-2" name="gender">
-                    <label for="sex-2">女</label>
-                </div>
-                <div class="radio-box">
-                    <input type="radio" value="保密" id="sex-3" name="gender">
-                    <label for="sex-3">保密</label>
-                </div>
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>车牌号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="carNum" name="carNum">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span> 金额：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="telephone" name="telephone">
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>车辆信息：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" id="carMessage" name="carMessage">
+                <input type="text" class="input-text" name="yMoney" id="yMoney">
             </div>
         </div>
 
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 住址：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" name="address" id="address">
-            </div>
-        </div>
-
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">备注：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="remark" id="remark" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符"
-                          onKeyUp="$.Huitextarealength(this,100)"></textarea>
-                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-            </div>
-        </div>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <input class="btn btn-primary radius" type="submit"
@@ -121,16 +89,12 @@
                 gender: {
                     required: true
                 },
-                telephone: {
+                address: {
+                    required: true
+                },
+                remark: {
                     required: true,
-                    isMobile: true
-                },
-                address:{
-                    required:true
-                },
-                remark:{
-                    required:true,
-                    minlength:10
+                    minlength: 10
                 }
             },
             onkeyup: false,
