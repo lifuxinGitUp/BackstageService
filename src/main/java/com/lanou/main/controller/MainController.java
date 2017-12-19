@@ -111,7 +111,7 @@ public class MainController {
         return "proprietor/proprietor-show";
     }
 
-    // 浏览记录
+    // 浏览记
     @RequestMapping(value = "proprietorCarCost")
     public String proprietor_Record_Browse(){
         return "proprietor/garageMessage";
