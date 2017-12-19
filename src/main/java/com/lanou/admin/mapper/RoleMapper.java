@@ -11,4 +11,5 @@ public interface RoleMapper {
     int addRole(Role role);
     void addRolePer(Role role);
     List<Role> findAllRole();
+    Role findRoleById(int roleId);
 }

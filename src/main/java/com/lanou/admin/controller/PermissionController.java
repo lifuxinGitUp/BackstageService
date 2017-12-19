@@ -29,7 +29,15 @@ public class PermissionController {
     @ResponseBody
     @RequestMapping("/findAllGroup")
     public List<Group> findAllGroup(){
-        return permissionService.findAllGroup();
+        List<Group> groups = permissionService.findAllGroup();
+        return groups;
+    }
+
+    @ResponseBody
+    @RequestMapping("/findGroup")
+    public List<Group> findGroup(){
+        List<Group> groups = permissionService.findGroup();
+        return groups;
     }
 
     @ResponseBody

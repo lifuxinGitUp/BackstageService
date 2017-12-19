@@ -5,20 +5,31 @@
 <web-app>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:SSM-mybatis.xml</param-value>
+        <param-value>classpath:SSM-mybatis.xml, classpath:SSM-shiro.xml</param-value>
     </context-param>
-
     <!--字符编码配置-->
+    <!--<filter>-->
+        <!--<filter-name>characterEncoding</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>UTF-8</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>characterEncoding</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
     <filter>
-        <filter-name>characterEncoding</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>characterEncoding</filter-name>
+        <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!-- 在web.xml加载的时候把所有的配置文件配置进去 -->

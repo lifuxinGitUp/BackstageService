@@ -11,6 +11,7 @@ public class Role {
     private String roleContent;
 
     private List<PermissionExp> permissions;
+    private List<Admin> admins;
 
     public Role() {
     }
@@ -59,5 +60,13 @@ public class Role {
 
     public void setPermissions(List<PermissionExp> permissions) {
         this.permissions = permissions;
+    }
+
+    public List<Admin> getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
     }
 }

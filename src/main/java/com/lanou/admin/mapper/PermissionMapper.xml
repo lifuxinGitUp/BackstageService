@@ -19,6 +19,10 @@
         SELECT * FROM `group` NATURAL JOIN permission;
     </select>
 
+    <select id="findGroup" resultType="com.lanou.admin.bean.Group">
+        SELECT * FROM `group`;
+    </select>
+
     <select id="findAllPermission" resultType="com.lanou.admin.bean.Permission">
         SELECT * FROM permission;
     </select>

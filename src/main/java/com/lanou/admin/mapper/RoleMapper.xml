@@ -30,4 +30,7 @@
     <select id="findAllRole" resultType="com.lanou.admin.bean.Role">
         SELECT * FROM roles
     </select>
+    <select id="findRoleById" parameterType="int" resultType="com.lanou.admin.bean.Role">
+        SELECT * FROM roles WHERE roleId=#{roleId};
+    </select>
 </mapper>

@@ -1,7 +1,9 @@
 package com.lanou.admin.service.impl;
 
+import com.lanou.admin.bean.Admin;
 import com.lanou.admin.bean.Role;
 import com.lanou.admin.mapper.RoleMapper;
+import com.lanou.admin.service.AdminService;
 import com.lanou.admin.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +16,9 @@ import java.util.List;
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
+    @Qualifier("adminService")
+    @Autowired
+    private AdminService adminService;
     @Qualifier("roleMapper")
     @Autowired
     private RoleMapper roleMapper;
@@ -33,6 +38,17 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAllRole() {
-        return roleMapper.findAllRole();
+        List<Role> roles = roleMapper.findAllRole();
+        for (Role role : roles) {
+            List<Admin> admins = adminService.findAdmin(role.getRoleId());
+            role.setAdmins(admins);
+        }
+        return roles;
+
+    }
+
+    @Override
+    public Role findRoleById(int roleId) {
+        return roleMapper.findRoleById(roleId);
     }
 }

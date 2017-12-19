@@ -20,15 +20,13 @@ public class AdminController {
     @Qualifier("adminService")
     @Autowired
     private AdminService adminService;
-    //123124213123345351232342346786544
     @RequestMapping(value = "/goAddAdminPage")
     public String admin_Add(){
         return "admin/admin-add";
     }
-
     @RequestMapping(value = "/addAdmin")
     public void addAdmin(Admin admin, String roleId){
-        adminService.addAdmin(admin);
+        adminService.addAdmin(admin,roleId);
         System.out.println(admin.getAdminId());
     }
 }

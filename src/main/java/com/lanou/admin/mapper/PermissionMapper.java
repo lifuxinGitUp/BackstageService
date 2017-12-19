@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface PermissionMapper {
     List<Group> findAllGroup();
+    List<Group> findGroup();
     List<Permission> findAllPermission();
     Group findGroupById(int groId);
     void addPermission(Permission per);

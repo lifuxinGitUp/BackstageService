@@ -51,11 +51,11 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
-                    <input name="adminGender" type="radio" id="sex-1" checked>
+                    <input name="adminGender" type="radio" id="sex-1" value="1" checked>
                     <label for="sex-1">男</label>
                 </div>
                 <div class="radio-box">
-                    <input type="radio" id="sex-2" name="adminGender">
+                    <input type="radio" id="sex-2" value="0" name="adminGender">
                     <label for="sex-2">女</label>
                 </div>
             </div>
@@ -75,18 +75,14 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">角色：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="roleId" size="1">
-				<option value="0">超级管理员</option>
-				<option value="1">总编</option>
-				<option value="2">栏目主辑</option>
-				<option value="3">栏目编辑</option>
+			<select class="select" id="role" name="roleId" size="1">
 			</select>
 			</span></div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"
+                <textarea name="adminContent" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"
                           onKeyUp="$.Huitextarealength(this,100)"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
@@ -111,6 +107,23 @@
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
     $(function () {
+        $.ajax({
+            url: "/role/findAllRole",
+            type: "get",
+            async: false,
+            dataType: "json",
+            success: function (posts) {
+                $("#role").append("<option value='-1'>请选择一个角色</option>");
+                for (var i = 0; i < posts.length ; i++){
+                    RoleList(posts[i]);
+                }
+            }
+        });
+
+        function RoleList(role) {
+            var td1 = $("<option></option>").attr("value",role.roleId).html(role.roleName);
+            $("#role").append(td1);
+        }
         $('.skin-minimal input').iCheck({
             checkboxClass: 'icheckbox-blue',
             radioClass: 'iradio-blue',

@@ -3,6 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.admin.mapper.AdminMapper">
+    <resultMap id="adminInfo" type="com.lanou.admin.bean.Admin">
+        <id column="adminId" property="adminId"/>
+        <result column="adminLoginName" property="adminLoginName"/>
+        <result column="adminLoginPwd" property="adminLoginPwd"/>
+        <result column="adminSalt" property="adminSalt"/>
+        <result column="adminGender" property="adminGender"/>
+        <result column="adminPhone" property="adminPhone"/>
+        <result column="adminEmail" property="adminEmail"/>
+        <result column="adminConten" property="adminContent"/>
+        <result column="adminState" property="adminState"/>
+        <result column="adminJoinTime" property="adminJoinTime"/>
+        <association property="role" javaType="com.lanou.admin.bean.Role">
+            <id column="roleId" property="roleId"/>
+            <result column="roleName" property="roleName"/>
+            <result column="roleContent" property="roleContent"/>
+            <collection property="permissions" ofType="com.lanou.admin.bean.PermissionExp">
+                <id column="perId" property="perId"/>
+                <result column="addPer" property="addPer"/>
+                <result column="deletePer" property="deletePer"/>
+                <result column="updatePer" property="updatePer"/>
+                <result column="selectPer" property="selectPer"/>
+                <result column="auditPer" property="auditPer"/>
+                <result column="ownPer" property="ownPer"/>
+                <result column="perName" property="perName"/>
+                <result column="perContent" property="perContent"/>
+            </collection>
+        </association>
+    </resultMap>
+
+
+
     <insert id="addAdmin"
             useGeneratedKeys="true" keyProperty="adminId"
             parameterType="com.lanou.admin.bean.Admin">
@@ -11,4 +42,21 @@
         VALUES
         (#{adminLoginName},#{adminLoginPwd},#{adminSalt},#{adminGender},#{adminPhone},#{adminEmail},#{adminContent},#{adminJoinTime})
     </insert>
+    <insert id="addAdminRole" parameterType="com.lanou.admin.bean.Admin">
+        INSERT INTO admin_roles
+        (adminId,roleId)
+        VALUES
+        (#{adminId},#{role.roleId})
+    </insert>
+    <select id="findAdmin" parameterType="int" resultType="com.lanou.admin.bean.Admin">
+        SELECT * FROM admin_roles NATURAL JOIN admin WHERE roleId=#{roleId}
+    </select>
+
+    <select id="findAdminByLoginName" parameterType="java.lang.String" resultMap="adminInfo">
+      SELECT * FROM
+      (SELECT * FROM admin NATURAL JOIN admin_roles NATURAL JOIN roles) a
+      JOIN
+      (SELECT * FROM roles_per NATURAL JOIN permission) b
+      WHERE a.roleId=b.roleId AND adminLoginName=#{adminLoginName};
+    </select>
 </mapper>
